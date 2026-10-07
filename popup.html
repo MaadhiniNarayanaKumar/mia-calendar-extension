@@ -38,13 +38,9 @@
           <label class="field-label" for="paste">Paste invite</label>
           <textarea
             id="paste"
-            rows="4"
-            placeholder="LSEG Presentation&#10;Thursday, October 8⋅2:00 – 3:00pm&#10;Room 608&#10;https://zoom.us/…"
+            rows="2"
+            placeholder="LSEG Presentation · Thu Oct 8, 2:00–3:00pm · Room 608"
           ></textarea>
-          <div class="actions-row">
-            <button id="parse" type="button" class="btn primary">Parse</button>
-            <button id="scrape" type="button" class="btn outline">Scrape page</button>
-          </div>
         </section>
 
         <button
@@ -71,10 +67,10 @@
           <div class="field">
             <label class="field-label" for="calendar">Calendar</label>
             <div class="select-wrap">
-              <span class="dot" id="calendarDot"></span>
+              <span class="dot" id="calendarDot" style="background: #7c3aed"></span>
               <select id="calendar">
                 <option value="manual" data-color="#4F46E5">Personal</option>
-                <option value="work" data-color="#7C3AED">Work</option>
+                <option value="work" data-color="#7C3AED" selected>Work</option>
                 <option value="extension" data-color="#818CF8">Extension</option>
               </select>
             </div>
@@ -103,25 +99,26 @@
             </div>
           </div>
 
-          <div class="field">
-            <label class="field-label" for="location">Location</label>
-            <input id="location" type="text" placeholder="Room, Zoom, address…" />
-          </div>
-
-          <div class="field">
-            <label class="field-label" for="reminder">Reminder</label>
-            <select id="reminder">
-              <option value="">None</option>
-              <option value="10">10 min</option>
-              <option value="60">1 hr</option>
-            </select>
+          <div class="split-row">
+            <div class="field grow">
+              <label class="field-label" for="location">Location</label>
+              <input id="location" type="text" placeholder="Room, Zoom, address…" />
+            </div>
+            <div class="field reminder-field">
+              <label class="field-label" for="reminder">Reminder</label>
+              <select id="reminder">
+                <option value="">None</option>
+                <option value="10">10 min</option>
+                <option value="60">1 hr</option>
+              </select>
+            </div>
           </div>
 
           <div class="field">
             <label class="field-label" for="notes">Notes</label>
             <textarea
               id="notes"
-              rows="2"
+              rows="1"
               placeholder="Description / organizer…"
             ></textarea>
           </div>

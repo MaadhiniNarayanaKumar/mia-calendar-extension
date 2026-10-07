@@ -11,7 +11,7 @@
   --border: #e5e7eb;
   --guess: #f59e0b;
   --guess-bg: #fef3c7;
-  --radius: 12px;
+  --radius: 8px;
   --shadow: 0 -8px 24px rgba(17, 24, 39, 0.06);
 }
 
@@ -40,9 +40,10 @@
 html,
 body {
   margin: 0;
-  width: 380px;
+  width: 360px;
+  height: auto;
   max-height: 600px;
-  height: 600px;
+  overflow: hidden;
   font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   background: var(--bg);
   color: var(--text);
@@ -51,27 +52,27 @@ body {
 .shell {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: auto;
   max-height: 600px;
 }
 
 .header {
   flex: 0 0 auto;
-  padding: 14px 16px 10px;
+  padding: 8px 12px 6px;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
 
 .brand {
   display: flex;
-  gap: 10px;
-  align-items: flex-start;
+  gap: 8px;
+  align-items: center;
 }
 
 .logo {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
   background: var(--primary);
   color: #fff;
   display: grid;
@@ -79,36 +80,42 @@ body {
   flex-shrink: 0;
 }
 
+.logo svg {
+  width: 14px;
+  height: 14px;
+}
+
 .header h1 {
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 800;
   letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .steps {
   list-style: none;
   display: flex;
   gap: 8px;
-  margin: 6px 0 0;
+  margin: 2px 0 0;
   padding: 0;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--label);
 }
 
 .steps li {
   position: relative;
-  padding-left: 14px;
+  padding-left: 11px;
 }
 
 .steps li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 4px;
-  width: 8px;
-  height: 8px;
+  top: 3px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--border);
 }
@@ -130,17 +137,17 @@ body {
 }
 
 .scroll {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  padding: 12px 16px 16px;
+  flex: 0 0 auto;
+  overflow: visible;
+  padding: 8px 12px 8px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
 .footer {
   flex: 0 0 auto;
-  padding: 12px 16px 14px;
+  padding: 8px 12px;
   background: var(--card);
   border-top: 1px solid var(--border);
   box-shadow: var(--shadow);
@@ -148,11 +155,12 @@ body {
 
 .field-label {
   display: block;
-  margin-bottom: 4px;
-  font-size: 11px;
+  margin-bottom: 2px;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--label);
+  line-height: 1.2;
 }
 
 .field {
@@ -163,7 +171,7 @@ body {
 .form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
 input,
@@ -171,15 +179,23 @@ textarea,
 select {
   width: 100%;
   font: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
+  line-height: 1.25;
   color: var(--text);
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 10px 12px;
+  padding: 4px 8px;
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input[type='date'],
+input[type='time'],
+input[type='text'],
+select {
+  height: 26px;
 }
 
 input:focus,
@@ -198,24 +214,18 @@ select.guessed {
 
 .title-area {
   resize: none;
-  min-height: 42px;
-  max-height: 72px;
-  line-height: 1.35;
+  min-height: 26px;
+  max-height: 44px;
+  line-height: 1.25;
   overflow-y: auto;
-}
-
-.actions-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
 }
 
 .btn {
   border: 0;
   border-radius: var(--radius);
-  padding: 10px 14px;
+  padding: 5px 10px;
   font: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -229,24 +239,18 @@ select.guessed {
   filter: brightness(1.05);
 }
 
-.btn.outline {
-  background: transparent;
-  color: var(--primary);
-  border: 1px solid color-mix(in srgb, var(--primary) 40%, var(--border));
-}
-
-.btn.outline:hover {
-  background: var(--tint);
-}
-
 .btn.send {
   width: 100%;
-  padding: 12px 14px;
+  padding: 7px 10px;
 }
 
 .btn:disabled {
   opacity: 0.55;
   cursor: wait;
+}
+
+.paste-collapsed[hidden] {
+  display: none;
 }
 
 .paste-collapsed {
@@ -258,8 +262,8 @@ select.guessed {
   background: var(--tint);
   color: var(--text);
   border-radius: var(--radius);
-  padding: 10px 12px;
-  font-size: 12px;
+  padding: 5px 8px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   text-align: left;
@@ -270,22 +274,30 @@ select.guessed {
   font-weight: 500;
 }
 
-.when-row {
+.when-row,
+.split-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: flex-end;
 }
 
+.split-row .grow,
 .when-row .grow {
   flex: 1;
+  min-width: 0;
+}
+
+.reminder-field {
+  width: 96px;
+  flex-shrink: 0;
 }
 
 .allday-toggle {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 2px;
-  font-size: 12px;
+  gap: 6px;
+  margin-bottom: 1px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--muted);
   white-space: nowrap;
@@ -294,8 +306,8 @@ select.guessed {
 }
 
 .allday-toggle input {
-  width: 36px;
-  height: 22px;
+  width: 30px;
+  height: 18px;
   appearance: none;
   border-radius: 999px;
   background: var(--border);
@@ -309,10 +321,10 @@ select.guessed {
 .allday-toggle input::after {
   content: '';
   position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 16px;
-  height: 16px;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #fff;
   transition: transform 0.15s;
@@ -323,7 +335,7 @@ select.guessed {
 }
 
 .allday-toggle input:checked::after {
-  transform: translateX(14px);
+  transform: translateX(12px);
 }
 
 .times {
@@ -343,8 +355,8 @@ select.guessed {
   color: var(--primary);
   background: var(--tint);
   border-radius: 999px;
-  padding: 6px 8px;
-  margin-bottom: 6px;
+  padding: 3px 6px;
+  margin-bottom: 3px;
   white-space: nowrap;
 }
 
@@ -356,21 +368,21 @@ select.guessed {
 
 .select-wrap .dot {
   position: absolute;
-  left: 12px;
-  width: 8px;
-  height: 8px;
+  left: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--primary);
   pointer-events: none;
 }
 
 .select-wrap select {
-  padding-left: 28px;
+  padding-left: 20px;
 }
 
 .status {
-  margin: 0 0 8px;
-  font-size: 12px;
+  margin: 0 0 4px;
+  font-size: 11px;
   font-weight: 600;
   text-align: center;
 }

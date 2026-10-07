@@ -25,8 +25,6 @@ const calendarDot = document.getElementById('calendarDot');
 const reminderEl = document.getElementById('reminder');
 const submitEl = document.getElementById('submit');
 const statusEl = document.getElementById('status');
-const parseBtn = document.getElementById('parse');
-const scrapeBtn = document.getElementById('scrape');
 const toastEl = document.getElementById('toast');
 const steps = [...document.querySelectorAll('#steps li')];
 
@@ -72,7 +70,7 @@ function markGuessed(names = []) {
 
 function autosizeTitle() {
   titleEl.style.height = 'auto';
-  const next = Math.min(72, Math.max(42, titleEl.scrollHeight));
+  const next = Math.min(44, Math.max(26, titleEl.scrollHeight));
   titleEl.style.height = `${next}px`;
 }
 
@@ -159,7 +157,7 @@ async function loadPrefs() {
 
 function updateCalendarDot() {
   const opt = calendarEl.selectedOptions[0];
-  calendarDot.style.background = opt?.dataset.color || '#4F46E5';
+  calendarDot.style.background = opt?.dataset.color || '#7C3AED';
 }
 
 function resetForm() {
@@ -191,12 +189,9 @@ function showToast(message) {
 const defaults = defaultTimes();
 setDateTimes(defaults.start, defaults.end);
 syncAllDayUi();
+updateCalendarDot();
 loadPrefs().then(() => pasteEl.focus());
 setStep(1);
-
-parseBtn.addEventListener('click', () => {
-  applyParsed(parseInviteText(pasteEl.value));
-});
 
 pasteEl.addEventListener('paste', () => {
   setTimeout(() => {
@@ -209,40 +204,6 @@ pasteEl.addEventListener('paste', () => {
 pasteCollapsed.addEventListener('click', () => {
   collapsePaste(false);
   pasteEl.focus();
-});
-
-scrapeBtn.addEventListener('click', async () => {
-  try {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (!tab?.id) {
-      setStatus('No active tab', false);
-      return;
-    }
-    const [{ result }] = await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: () => ({
-        text: document.body?.innerText || '',
-        title: document.title || '',
-        url: location.href,
-      }),
-    });
-    const parsed = parseInviteText(result?.text || '', {
-      requireWhen: true,
-      pageTitle: result?.title || '',
-    });
-    if (!parsed) {
-      setStatus(
-        'No event with a real date/time found — paste the invite instead',
-        false,
-      );
-      return;
-    }
-    if (!pasteEl.value) pasteEl.value = (result?.text || '').slice(0, 2000);
-    applyParsed(parsed);
-  } catch (err) {
-    console.error(err);
-    setStatus(err.message || String(err), false);
-  }
 });
 
 titleEl.addEventListener('input', autosizeTitle);
@@ -301,7 +262,7 @@ form.addEventListener('submit', async (e) => {
       description: notesEl.value,
       pageUrl,
       calendarId: calendarEl.value,
-      color: opt?.dataset.color || '#4F46E5',
+      color: opt?.dataset.color || '#7C3AED',
       reminderMinutes: reminderEl.value,
     });
 
