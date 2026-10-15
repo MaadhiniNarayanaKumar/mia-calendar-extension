@@ -4,8 +4,11 @@ Standalone Chrome extension that saves calendar events to Firestore as
 `source: extension` under `users/{uid}/events`.
 
 Works with the companion Flutter app:
-[voice-task-app](https://github.com/MaadhiniNarayanaKumar/voice-task-app)
-(Calendar agenda shows extension + manual events together).
+[voice-task-app](https://github.com/MaadhiniNarayanaKumar/voice-task-app).
+Extension events and events added in the app show on the same calendar.
+
+Sibling of
+[mia-task-extension](https://github.com/MaadhiniNarayanaKumar/mia-task-extension).
 
 ## Load in Chrome
 
@@ -50,6 +53,15 @@ uid: 'local-guest', // keep in sync with the Flutter guest uid
 4. Check fields → **Send to Mia**
 
 **Scrape page** reads the active tab and runs the same parser. It requires a real date **and** time, and skips page-title junk (e.g. university calendar week headers).
+
+## In the app
+
+After **Send to Mia**, the event is on the calendar (Home → Calendar, or Quick actions → Calendar).
+
+- There are no Work / Personal / Extension filters. Extension and manual events are listed together.
+- The schedule uses today’s date. Week view shows upcoming events this week, or a single **No events** line.
+- Agenda, day, and week use the week strip. Month uses the month grid. Only one of those is on screen.
+- When the event has ended, it leaves the list. The app asks **Did you attend this event?** and saves `attended` on the same document.
 
 ## Notes
 
